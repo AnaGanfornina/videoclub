@@ -25,12 +25,31 @@ class Director:
 
     
 class Pelicula():
-    def __init__(self,titulo :str,sinopsis:str,id_director:int , id: int = -1):
+    def __init__(self,titulo :str,sinopsis:str,director: object , id: int = -1):
         self.titulo = titulo
         self.sinopsis = sinopsis
-        self.id_director = id_director
         self.id = id
-        self.id_director = None
+        self.director = director
+        
+        @property
+        def director(self):
+            return self._director
+        @director.setter
+        def director(self,value):
+            if isinstance(director,Director):
+                self._director = director
+                self._id_director = director.id
+            elif isinstance(director,int):
+                self._director = None
+                self._id_director = director
+            else:
+                raise TypeError (f"{director}, debe ser un entero o una instancia de Director")
+        
+
+
+
+            
+        
 
 
 
