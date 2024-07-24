@@ -1,4 +1,4 @@
-from app.modelos import Director, DAO_CSV_Director,Pelicula,Director,DAO_CSV_Peliculas
+from app.modelos import Director, DAO_CSV_Director,Pelicula,Director,DAO_CSV_Peliculas,Copia,DAO_CSV_Copias,DAO_SQLite_Director
 
 
 def test_crate_director():
@@ -52,4 +52,26 @@ def test_dao_peliculas_traer_todos():
 
     assert len(peliculas) == 5
     assert peliculas[1] == Pelicula("Los siete samuráis","Una banda de forajidos atemorizan a los habitantes de un pequeño pueblo, saqueándolos periódicamente sin piedad. Para repeler estos ataques, los aldeanos deciden contratar a mercenarios. Finalmente, consiguen los servicios de 7 guerreros, 7 samurais dispuestos a defenderlos a cambio, tan solo, de cobijo y comida.",2,17)
-     
+
+def test_crate_copia():
+    copia = Copia(1,1)
+
+    assert copia.id_copia == 1
+    assert copia.id_pelicula == 1
+
+        
+def test_copia_traer_todos():
+    dao =  DAO_CSV_Copias("test/data/copias.csv")
+    copias = dao.todos()
+
+    assert len(copias) == 9
+    assert copias[0] == Copia(1,1)
+
+def test_dao_directores_sqlite_traer_todos():
+    dao = DAO_SQLite_Director ("data/film.sqlite")
+
+    directores = dao.todos()
+
+ 
+    assert len(directores) == 76
+    assert directores [7] == Director("Charlie Chaplin",8)
